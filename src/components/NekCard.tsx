@@ -6,6 +6,7 @@ import { X, BadgeCheck, Share2, Download, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "react-qr-code";
+import SocialShareAsset from "./SocialShareAsset";
 
 interface NekCardProps {
   isOpen: boolean;
@@ -14,44 +15,37 @@ interface NekCardProps {
 
 export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const [copied, setCopied] = useState(false);
+  const [isGeneratingShare, setIsGeneratingShare] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const socialAssetRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
-    const url = `${window.location.origin}/bharath?v=2`;
+    if (isGeneratingShare) return;
+    setIsGeneratingShare(true);
+    const url = `${window.location.origin}/bharath`;
     let fileToShare: File | null = null;
     
-    // Generate an image snapshot for native rich sharing (Instagram Story, etc)
-    if (cardRef.current) {
+    // Generate the dedicated Social Share Asset
+    if (socialAssetRef.current) {
       try {
         const { toBlob } = await import('html-to-image');
-        // Briefly reset flip state to ensure we capture the front of the card clearly
-        const wasFlipped = isFlipped;
-        if (wasFlipped) setIsFlipped(false);
-        
-        // Wait a tiny bit for the flip animation to settle if we had to revert it
-        if (wasFlipped) await new Promise(r => setTimeout(r, 300));
-
-        const blob = await toBlob(cardRef.current, {
+        const blob = await toBlob(socialAssetRef.current, {
           cacheBust: true,
-          pixelRatio: 2, // High resolution for stories
-          backgroundColor: '#000000', // Ensure dark mode background
+          pixelRatio: 2,
+          backgroundColor: '#000000',
         });
-
         if (blob) {
-          fileToShare = new File([blob], 'nek-card.png', { type: 'image/png' });
+          fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
         }
-        
-        // Restore flip state if needed
-        if (wasFlipped) setIsFlipped(true);
       } catch (e) {
-        console.error('Failed to generate image snapshot', e);
+        console.error('Failed to generate social asset', e);
       }
     }
 
     const shareData: any = {
-      title: "Bharath Chavan — Founder @ NEk LABS",
-      text: "View my digital business card, contact details, and book a meeting.",
+      title: "NEk LABS",
+      text: "NEk LABS — Web • AI • Automation",
       url: url
     };
     
@@ -59,19 +53,29 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
       shareData.files = [fileToShare];
     }
 
-    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-      try {
+    try {
+      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
         await navigator.share(shareData);
-      } catch (err) {
-        navigator.clipboard.writeText(url).catch(() => { });
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
+      } else {
+        throw new Error('Native file sharing not supported');
       }
-    } else {
-      navigator.clipboard.writeText(url).catch(() => { });
+    } catch (err) {
+      // Graceful fallback
+      if (fileToShare) {
+        const fallbackUrl = URL.createObjectURL(fileToShare);
+        const a = document.createElement('a');
+        a.href = fallbackUrl;
+        a.download = 'nek-labs-card.png';
+        a.click();
+        URL.revokeObjectURL(fallbackUrl);
+      }
+      navigator.clipboard.writeText(url).catch(() => {});
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 3000);
+      alert('CARD READY. Image saved to your device. Share it to Instagram!');
     }
+    
+    setIsGeneratingShare(false);
   };
 
   const downloadVCF = () => {
@@ -103,7 +107,9 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
   }, [isOpen, onClose]);
 
   return (
-    <AnimatePresence>
+    <>
+      <SocialShareAsset ref={socialAssetRef} />
+      <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-[1000px]" aria-modal="true" role="dialog">
           {/* Backdrop */}
@@ -197,21 +203,33 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                   <div className="flex justify-end items-center gap-3">
                     <button
                       onClick={handleShare}
-                      className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-all relative group"
+                      disabled={isGeneratingShare}
+                      className="h-10 rounded-full border border-white/10 flex items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-all relative group px-4 overflow-hidden"
                     >
-                      <AnimatePresence>
-                        {copied && (
+                      <AnimatePresence mode="wait">
+                        {isGeneratingShare ? (
                           <motion.span
-                            initial={{ opacity: 0, y: 5 }}
+                            key="generating"
+                            initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 5 }}
-                            className="text-[10px] font-bold absolute -top-8 bg-white text-black px-2.5 py-1 rounded-md tracking-wider pointer-events-none"
+                            exit={{ opacity: 0, y: -10 }}
+                            className="text-[10px] font-bold tracking-widest uppercase text-white"
                           >
-                            COPIED!
+                            PREPARING CARD...
                           </motion.span>
+                        ) : (
+                          <motion.div
+                            key="default"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="flex items-center gap-2"
+                          >
+                            <Share2 size={16} />
+                            {copied && <span className="text-[10px] font-bold tracking-widest text-white uppercase ml-1">CARD READY</span>}
+                          </motion.div>
                         )}
                       </AnimatePresence>
-                      <Share2 size={16} />
                     </button>
                     <Link
                       href="/meet"
@@ -274,5 +292,6 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
         </div>
       )}
     </AnimatePresence>
+    </>
   );
 }
