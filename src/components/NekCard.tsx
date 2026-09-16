@@ -19,11 +19,45 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
   const handleShare = async () => {
     const url = `${window.location.origin}/bharath?v=2`;
-    const shareData = {
+    let fileToShare: File | null = null;
+    
+    // Generate an image snapshot for native rich sharing (Instagram Story, etc)
+    if (cardRef.current) {
+      try {
+        const { toBlob } = await import('html-to-image');
+        // Briefly reset flip state to ensure we capture the front of the card clearly
+        const wasFlipped = isFlipped;
+        if (wasFlipped) setIsFlipped(false);
+        
+        // Wait a tiny bit for the flip animation to settle if we had to revert it
+        if (wasFlipped) await new Promise(r => setTimeout(r, 300));
+
+        const blob = await toBlob(cardRef.current, {
+          cacheBust: true,
+          pixelRatio: 2, // High resolution for stories
+          backgroundColor: '#000000', // Ensure dark mode background
+        });
+
+        if (blob) {
+          fileToShare = new File([blob], 'nek-card.png', { type: 'image/png' });
+        }
+        
+        // Restore flip state if needed
+        if (wasFlipped) setIsFlipped(true);
+      } catch (e) {
+        console.error('Failed to generate image snapshot', e);
+      }
+    }
+
+    const shareData: any = {
       title: "Bharath Chavan — Founder @ NEk LABS",
       text: "View my digital business card, contact details, and book a meeting.",
       url: url
     };
+    
+    if (fileToShare) {
+      shareData.files = [fileToShare];
+    }
 
     if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
       try {
