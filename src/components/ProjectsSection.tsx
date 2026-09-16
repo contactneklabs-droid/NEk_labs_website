@@ -60,7 +60,7 @@ export default function ProjectsSection() {
                     </h3>
                     {proj.isExperimental && (
                       <span className="border border-zinc-700 text-zinc-400 text-[10px] px-2 py-1 uppercase tracking-widest whitespace-nowrap">
-                        NEk. Labs Experimental
+                        NEk. Labs Prototype
                       </span>
                     )}
                   </div>

@@ -38,7 +38,7 @@ export default function NekForgeCaseStudy() {
             </div>
             <div>
               <p className="text-zinc-600 mb-2">Type</p>
-              <p>Experimental Product</p>
+              <p>Prototype Product</p>
             </div>
             <div>
               <p className="text-zinc-600 mb-2">Built By</p>
