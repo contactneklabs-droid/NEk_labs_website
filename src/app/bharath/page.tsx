@@ -12,10 +12,10 @@ export const metadata: Metadata = {
     siteName: "NEk LABS",
     images: [
       {
-        url: "https://nek-labs-website.vercel.app/bharath-og.jpg",
+        url: "https://res.cloudinary.com/wak9cipn/image/upload/v1789490961/ChatGPT_Image_Aug_14_2026_11_09_51_PM.png",
         width: 1200,
         height: 630,
-        alt: "Bharath Chavan - Digital Profile",
+        alt: "Bharath Chavan - Founder",
       },
     ],
     type: "website",
