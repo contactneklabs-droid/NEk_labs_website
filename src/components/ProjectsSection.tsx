@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const projects = [
   {
@@ -62,9 +63,9 @@ export default function ProjectsSection() {
                     {proj.desc}
                   </p>
                   
-                  <button className="flex items-center gap-2 border border-white/20 px-6 py-3 text-sm uppercase font-medium hover:bg-white hover:text-black transition-colors">
+                  <Link href="/work/nek-forge" className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-sm uppercase font-medium hover:bg-white hover:text-black transition-colors w-fit">
                     VIEW CASE STUDY <ArrowUpRight size={16} />
-                  </button>
+                  </Link>
                 </div>
 
                 <div className="space-y-8 border-l border-zinc-800 pl-6">
