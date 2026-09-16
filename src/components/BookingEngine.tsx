@@ -75,35 +75,35 @@ export default function BookingEngine() {
     if (step === 1) {
       const result = leadSchema.pick({ name: true, email: true }).safeParse(data);
       if (!result.success) {
-        setError(result.error.errors[0].message.toUpperCase());
+        setError(result.error.issues[0].message.toUpperCase());
         return;
       }
     }
     if (step === 2) {
       const result = leadSchema.pick({ categories: true }).safeParse(data);
       if (!result.success) {
-        setError(result.error.errors[0].message.toUpperCase());
+        setError(result.error.issues[0].message.toUpperCase());
         return;
       }
     }
     if (step === 3) {
       const result = leadSchema.pick({ details: true, goal: true }).safeParse(data);
       if (!result.success) {
-        setError(result.error.errors[0].message.toUpperCase());
+        setError(result.error.issues[0].message.toUpperCase());
         return;
       }
     }
     if (step === 4) {
       const result = leadSchema.pick({ budget: true }).safeParse(data);
       if (!result.success) {
-        setError(result.error.errors[0].message.toUpperCase());
+        setError(result.error.issues[0].message.toUpperCase());
         return;
       }
     }
     if (step === 5) {
       const result = leadSchema.pick({ timeline: true }).safeParse(data);
       if (!result.success) {
-        setError(result.error.errors[0].message.toUpperCase());
+        setError(result.error.issues[0].message.toUpperCase());
         return;
       }
     }
