@@ -48,16 +48,11 @@ export default function NekForgeCaseStudy() {
         </div>
       </section>
 
-      {/* Hero Image */}
+      {/* Hero Image (CSS-based for infinite quality & zero load time) */}
       <section className="w-full">
-        <div className="w-full h-[40vh] md:h-[70vh] relative">
-          <Image 
-            src="/nek-forge.jpg" 
-            alt="NEk Forge Overview" 
-            fill 
-            className="object-cover grayscale opacity-70"
-            priority
-          />
+        <div className="w-full h-[40vh] md:h-[60vh] bg-black border-b border-white/10 relative overflow-hidden flex flex-col items-center justify-center">
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
+          <h2 className="text-[clamp(4rem,12vw,12rem)] font-black uppercase tracking-tighter text-white z-10">NEk FORGE</h2>
         </div>
       </section>
 
@@ -116,13 +111,7 @@ export default function NekForgeCaseStudy() {
           </div>
         </section>
 
-        <Image 
-          src="/forge-network.jpg" 
-          alt="NEk Forge Network Architecture" 
-          width={1200} 
-          height={675} 
-          className="w-full grayscale opacity-80 rounded-sm"
-        />
+
 
         {/* 03 The Concept */}
         <section className="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-8">
@@ -238,13 +227,7 @@ export default function NekForgeCaseStudy() {
           </div>
         </section>
 
-        <Image 
-          src="/forge-dashboard.jpg" 
-          alt="NEk Forge Dashboard UI" 
-          width={1200} 
-          height={675} 
-          className="w-full grayscale opacity-80 rounded-sm"
-        />
+
 
         {/* 08 Audit Intelligence */}
         <section className="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-8">

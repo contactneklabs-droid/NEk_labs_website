@@ -41,10 +41,15 @@ export default function ProjectsSection() {
               transition={{ duration: 0.8 }}
               className="flex flex-col group"
             >
-              {/* Image - Strictly Monochrome */}
-              <div className="w-full aspect-[16/9] md:aspect-[21/9] bg-zinc-900 border border-zinc-800 mb-8 relative overflow-hidden group/image">
-                <img src={proj.image} alt={proj.title} className="absolute inset-0 w-full h-full object-cover filter grayscale transition-transform duration-700 group-hover/image:scale-105" />
-                <div className="absolute inset-0 bg-black/40 mix-blend-multiply transition-opacity duration-700 group-hover/image:opacity-0" />
+              {/* Image - Strictly Monochrome (CSS-based for infinite quality & zero load time) */}
+              <div className="w-full aspect-[16/9] md:aspect-[21/9] bg-black border border-white/10 mb-8 relative overflow-hidden group/image flex flex-col items-center justify-center">
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
+                <h3 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter text-white z-10 scale-95 group-hover/image:scale-100 transition-transform duration-700 mix-blend-difference">
+                  {proj.title}
+                </h3>
+                <p className="text-zinc-500 font-mono text-xs md:text-sm mt-2 z-10 tracking-widest uppercase">
+                  {proj.category}
+                </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
