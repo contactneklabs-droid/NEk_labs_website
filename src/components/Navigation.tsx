@@ -31,6 +31,16 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => {
+    const handleOpenCard = () => {
+      setCardOpen(true);
+      setShowHint(false);
+      if (typeof window !== 'undefined') localStorage.setItem('hasSeenNekCard', 'true');
+    };
+    window.addEventListener('open-nek-card', handleOpenCard);
+    return () => window.removeEventListener('open-nek-card', handleOpenCard);
+  }, []);
+
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const hasSeenCard = localStorage.getItem('hasSeenNekCard');
       if (!hasSeenCard && window.location.search.indexOf('card=true') === -1) {
@@ -228,14 +238,6 @@ export default function Navigation() {
 
               {/* CTAs & Footer */}
               <div className="flex flex-col gap-6 mt-12 shrink-0">
-                <motion.div variants={itemVariants} className="flex justify-center">
-                  <button
-                    onClick={() => { setIsOpen(false); setCardOpen(true); }}
-                    className="text-xs font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors flex items-center gap-1 active:scale-95"
-                  >
-                    NEk CARD <ArrowUpRight size={14} />
-                  </button>
-                </motion.div>
                 
                 <motion.div variants={itemVariants}>
                   <Link

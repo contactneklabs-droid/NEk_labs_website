@@ -18,10 +18,10 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
-    const url = `${window.location.origin}?card=true`;
+    const url = `${window.location.origin}/bharath`;
     const shareData = {
-      title: "NEk LABS",
-      text: "NEk — FOUNDER · BUILDER · CREATOR",
+      title: "Bharath Chavan — Founder @ NEk LABS",
+      text: "View my digital business card, contact details, and book a meeting.",
       url: url
     };
 

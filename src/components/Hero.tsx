@@ -1,10 +1,28 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import ScrambleText from "./ScrambleText";
 
 export default function Hero() {
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hasSeenCard = localStorage.getItem('hasSeenNekCard');
+      if (!hasSeenCard && window.location.search.indexOf('card=true') === -1) {
+        const timer = setTimeout(() => setShowHint(true), 2500);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
+
+  const openCard = () => {
+    setShowHint(false);
+    if (typeof window !== 'undefined') localStorage.setItem('hasSeenNekCard', 'true');
+    window.dispatchEvent(new Event('open-nek-card'));
+  };
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -50,6 +68,33 @@ export default function Hero() {
             <span className="border border-white/20 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors cursor-default">AI</span>
             <span className="border border-white/20 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors cursor-default">AUTOMATION</span>
             <span className="border border-white/20 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors cursor-default">CREATIVE TECH</span>
+          </motion.div>
+
+          {/* Mobile CTA */}
+          <motion.div variants={itemVariants} className="md:hidden mt-10 flex">
+            <button
+              onClick={openCard}
+              className="text-xs font-bold uppercase tracking-widest text-zinc-400 border border-white/20 hover:bg-white hover:text-black px-6 py-3 rounded-full transition-colors flex items-center gap-2 active:scale-95 relative"
+            >
+              NEk CARD <ArrowUpRight size={14} />
+              <AnimatePresence>
+                {showHint && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-black text-[9px] px-3 py-1.5 rounded-full font-bold tracking-widest whitespace-nowrap flex items-center gap-2 pointer-events-none shadow-2xl z-50"
+                  >
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-black"></span>
+                    </span>
+                    TAP TO VIEW
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[4px] border-t-white"></div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
           </motion.div>
         </motion.div>
       </div>
