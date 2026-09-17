@@ -98,9 +98,10 @@ export default function Navigation() {
           {/* Brand */}
           <Link
             href="/"
-            className="text-xl font-bold tracking-tighter uppercase relative z-50 hover:opacity-70 transition-opacity"
+            className="flex flex-col font-black tracking-tighter relative z-50 hover:opacity-70 transition-opacity"
           >
-            NEk. Labs
+            <span className="text-xl text-white uppercase leading-[0.75]">NEK.</span>
+            <span className="text-xl text-zinc-400 uppercase leading-[0.75] -mt-[0.05em]">LABS</span>
           </Link>
 
           {/* Desktop Nav (Unchanged) */}
