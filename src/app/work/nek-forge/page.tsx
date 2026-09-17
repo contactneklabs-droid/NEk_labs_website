@@ -19,8 +19,9 @@ export default function NekForgeCaseStudy() {
       <section className="relative w-full pt-40 pb-20 px-6 border-b border-white/10">
         <div className="container mx-auto max-w-5xl">
           <div className="mb-12">
-            <h1 className="text-[clamp(2.5rem,8vw,5rem)] font-black uppercase tracking-tighter leading-[0.9] mb-6">
-              NEk FORGE
+            <h1 className="flex flex-col tracking-tight mb-6 relative">
+              <span className="text-[clamp(3.5rem,10vw,6rem)] font-bold leading-[0.75] tracking-tighter">NEk.</span>
+              <span className="text-[clamp(2.5rem,8vw,4.5rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.1em] md:-mt-[0.2em]">Forge</span>
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 font-light tracking-wide uppercase">
               Website Intelligence & Digital Automation System
@@ -52,7 +53,10 @@ export default function NekForgeCaseStudy() {
       <section className="w-full">
         <div className="w-full h-[40vh] md:h-[60vh] bg-black border-b border-white/10 relative overflow-hidden flex flex-col items-center justify-center">
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
-          <h2 className="text-[clamp(4rem,12vw,12rem)] font-black uppercase tracking-tighter text-white z-10">NEk FORGE</h2>
+          <div className="z-10 flex flex-col items-center justify-center tracking-tight relative text-center">
+            <span className="text-[clamp(5rem,15vw,14rem)] font-bold text-white leading-[0.75] tracking-tighter">NEk.</span>
+            <span className="text-[clamp(3.5rem,10vw,9rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.2em] md:-mt-[0.3em]">Forge</span>
+          </div>
         </div>
       </section>
 

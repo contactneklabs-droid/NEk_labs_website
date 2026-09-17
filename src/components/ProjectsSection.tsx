@@ -1,103 +1,224 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useState, useRef } from "react";
 
 const projects = [
   {
     id: 1,
     title: "NEk Forge",
-    category: "Automation / Digital Systems",
+    displayTitle: "NEk | Forge",
+    category: "Design System / UI Library",
     year: "2026",
-    desc: "Automation-focused system providing website auditing, automated digital analysis, and automation workflows.",
-    tech: ["AI", "Automation", "System Auditing"],
-    isExperimental: true,
-    status: "IN DEVELOPMENT",
-    image: "/nek-forge.jpg",
+    status: "ACTIVE",
+    slug: "nek-forge",
+    image: "/images/projects/bg_1.jpg",
+  },
+  {
+    id: 2,
+    title: "NEk StudioDek",
+    displayTitle: "NEk | StudioDek",
+    category: "Desktop System / PC Control",
+    year: "2026",
+    status: "ADVANCED PROTOTYPE",
+    slug: "nek-studiodek",
+    image: "/images/projects/bg_2.jpg",
+  },
+  {
+    id: 3,
+    title: "NEk ControlDeck",
+    displayTitle: "NEk | ControlDeck",
+    category: "Mobile Control / Networking",
+    year: "2026",
+    status: "UNDER DEVELOPMENT",
+    slug: "nek-controldeck",
+    image: "/images/projects/bg_3.jpg",
+  },
+  {
+    id: 4,
+    title: "NEk Performance OS",
+    displayTitle: "NEk | Performance OS",
+    category: "Fitness & Performance System",
+    year: "2025",
+    status: "UNDER DEVELOPMENT",
+    slug: "nek-performance-os",
+    image: "/images/projects/bg_4.jpg",
+  },
+  {
+    id: 5,
+    title: "NEk Smart Device Control",
+    displayTitle: "NEk | Smart Device Control",
+    category: "PWA / QR Authentication",
+    year: "2025",
+    status: "ACTIVE PROTOTYPE",
+    slug: "nek-smart-device-control",
+    image: "/images/projects/bg_1.jpg",
+  },
+  {
+    id: 6,
+    title: "NEk Event Management System",
+    displayTitle: "NEk | Event System",
+    category: "Web Application / PHP / MySQL",
+    year: "2024",
+    status: "COMPLETED",
+    slug: "nek-event-management-system",
+    image: "/images/projects/bg_2.jpg",
+  },
+  {
+    id: 7,
+    title: "NEk OS",
+    displayTitle: "NEk | OS",
+    category: "Experimental / Productivity",
+    year: "2026",
+    status: "EXPERIMENTAL",
+    slug: "nek-os",
+    image: "/images/projects/bg_3.jpg",
+  },
+  {
+    id: 8,
+    title: "NEk Essentials",
+    displayTitle: "NEk | Essentials",
+    category: "Creative Tech / Video Processing",
+    year: "2026",
+    status: "CONCEPT / DEVELOPMENT",
+    slug: "nek-essentials",
+    image: "/images/projects/bg_4.jpg",
+  },
+  {
+    id: 9,
+    title: "NEk Automation Ecosystem",
+    displayTitle: "NEk | Automation Ecosystem",
+    category: "AI / Digital Operations Platform",
+    year: "2026",
+    status: "ACTIVE DEVELOPMENT",
+    slug: "nek-automation-ecosystem",
+    image: "/images/projects/bg_1.jpg",
+  },
+  {
+    id: 10,
+    title: "Gokush Photography",
+    displayTitle: "Gokush Photography",
+    category: "Client Work / Web Development",
+    year: "2025",
+    status: "COMPLETED & DEPLOYED",
+    slug: "gokush-photography",
+    image: "/images/projects/bg_2.jpg",
   },
 ];
 
 export default function ProjectsSection() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      const maxScroll = scrollWidth - clientWidth;
+      const progress = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+      setScrollProgress(progress);
+    }
+  };
+
   return (
-    <section id="work" className="py-32 bg-zinc-950 border-t border-zinc-900">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-          <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">
-            Selected Work
-          </h2>
-          <p className="text-zinc-500 uppercase tracking-widest text-sm font-medium">
-            Engineering & Design
+    <section id="work" className="w-full pt-32 pb-16 bg-zinc-950 text-white selection:bg-white selection:text-black border-t border-zinc-900">
+      
+      {/* Header */}
+      <div className="container mx-auto px-6 mb-12 flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8">
+        <h2 className="text-[clamp(3rem,8vw,5rem)] font-black uppercase tracking-tighter leading-none">
+          Selected Work
+        </h2>
+        <div className="text-right">
+          <p className="text-zinc-500 uppercase tracking-widest text-sm font-bold">
+            Scroll to Explore
           </p>
-        </div>
-
-        <div className="space-y-32">
-          {projects.map((proj, idx) => (
-            <motion.div
-              key={proj.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="flex flex-col group"
-            >
-              {/* Image - Strictly Monochrome (CSS-based for infinite quality & zero load time) */}
-              <div className="w-full aspect-[16/9] md:aspect-[21/9] bg-black border border-white/10 mb-8 relative overflow-hidden group/image flex flex-col items-center justify-center">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
-                <h3 className="text-[clamp(3rem,8vw,8rem)] font-black uppercase tracking-tighter text-white z-10 scale-95 group-hover/image:scale-100 transition-transform duration-700 mix-blend-difference">
-                  {proj.title}
-                </h3>
-                <p className="text-zinc-500 font-mono text-xs md:text-sm mt-2 z-10 tracking-widest uppercase">
-                  {proj.category}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div className="md:col-span-2">
-                  <div className="flex items-center gap-4 mb-4">
-                    <h3 className="text-3xl md:text-5xl font-black uppercase tracking-tighter group-hover:text-zinc-300 transition-colors">
-                      {proj.title}
-                    </h3>
-                    {proj.isExperimental && (
-                      <span className="border border-zinc-700 text-zinc-400 text-[10px] px-2 py-1 uppercase tracking-widest whitespace-nowrap">
-                        NEk. Labs Prototype
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl mb-8">
-                    {proj.desc}
-                  </p>
-                  
-                  <Link href="/work/nek-forge" className="inline-flex items-center gap-2 border border-white/20 px-6 py-3 text-sm uppercase font-medium hover:bg-white hover:text-black transition-colors w-fit">
-                    VIEW CASE STUDY <ArrowUpRight size={16} />
-                  </Link>
-                </div>
-
-                <div className="space-y-8 border-l border-zinc-800 pl-6">
-                  <div>
-                    <h4 className="text-xs text-zinc-600 uppercase tracking-widest mb-2 font-bold">Category</h4>
-                    <p className="text-sm font-medium">{proj.category}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-xs text-zinc-600 uppercase tracking-widest mb-2 font-bold">Year</h4>
-                    <p className="text-sm font-medium">{proj.year}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-xs text-zinc-600 uppercase tracking-widest mb-2 font-bold">Technologies</h4>
-                    <ul className="flex flex-wrap gap-2">
-                      {proj.tech.map((t) => (
-                        <li key={t} className="text-xs text-zinc-400 bg-zinc-900 px-2 py-1 border border-zinc-800">
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+          <div className="flex items-center justify-end gap-4 mt-2">
+            <div className="w-24 md:w-32 h-[2px] bg-white/10 relative">
+              <div 
+                className="absolute top-0 left-0 h-full bg-white transition-all duration-75 ease-out" 
+                style={{ width: `${Math.max(0, Math.min(100, scrollProgress * 100))}%` }}
+              ></div>
+            </div>
+            <p className="text-zinc-300 uppercase tracking-widest text-xs font-bold">
+              [ 01 — 10 ]
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Horizontal Slider */}
+      <div 
+        ref={scrollRef}
+        onScroll={handleScroll}
+        className="w-full overflow-x-auto flex gap-6 px-6 pb-12 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] group/slider"
+      >
+        {projects.map((proj) => (
+          <div 
+            key={proj.id} 
+            className="flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw] snap-center md:snap-start flex flex-col group/card transition-all duration-500 md:group-hover/slider:opacity-30 md:group-hover/slider:blur-[2px] md:hover:!opacity-100 md:hover:!blur-none"
+          >
+            {/* Uniform Thumbnail */}
+            <Link href={`/work/${proj.slug}`} className="block w-full aspect-[4/3] bg-black border border-white/10 hover:border-white/30 transition-colors duration-500 relative overflow-hidden flex flex-col items-center justify-center group/image">
+              
+              {/* Monochromatic Background Image */}
+              <img 
+                src={proj.image} 
+                alt={proj.title}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity grayscale group-hover/image:scale-105 group-hover/image:opacity-40 transition-all duration-1000 ease-out"
+              />
+
+              {/* CSS Noise Overlay */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)] z-10 pointer-events-none"></div>
+              
+              {/* Visual Title */}
+              <h3 className="text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase tracking-tighter text-white z-20 scale-95 group-hover/card:scale-100 transition-transform duration-700 mix-blend-difference flex flex-col items-center leading-[0.8] text-center px-4">
+                {proj.title.startsWith("NEk ") ? (
+                  <>
+                    <span>NEk.</span>
+                    <span className="font-[cursive] italic font-normal text-zinc-300 text-[clamp(1.8rem,4vw,3.5rem)] lowercase">{proj.title.replace("NEk ", "")}</span>
+                  </>
+                ) : (
+                  <span>{proj.title}</span>
+                )}
+              </h3>
+            </Link>
+
+            {/* Meta Data */}
+            <div className="mt-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-zinc-600 font-bold text-sm tracking-widest">{proj.id < 10 ? `0${proj.id}` : proj.id}</span>
+                  <h4 className="text-2xl font-black uppercase tracking-tighter text-white">
+                    {proj.displayTitle}
+                  </h4>
+                </div>
+                
+                <div className="flex flex-wrap gap-2 text-[10px] md:text-xs font-bold text-zinc-500 uppercase tracking-widest mt-3">
+                  <span>{proj.category}</span>
+                  <span className="text-zinc-700">•</span>
+                  <span>{proj.year}</span>
+                  <span className="text-zinc-700">•</span>
+                  <span className="text-zinc-300">
+                    {proj.status}
+                  </span>
+                </div>
+              </div>
+
+              <Link 
+                href={`/work/${proj.slug}`} 
+                className="flex-shrink-0 inline-flex items-center gap-2 text-zinc-400 text-[10px] md:text-xs font-bold uppercase tracking-widest group-hover/card:text-white transition-colors"
+              >
+                VIEW CASE STUDY <ArrowUpRight size={14} className="group-hover/card:translate-x-1 group-hover/card:-translate-y-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        ))}
+
+        {/* End Spacer to allow the last card to reach the left side on desktop */}
+        <div className="flex-shrink-0 w-[5vw] md:w-[35vw] lg:w-[50vw]"></div>
+      </div>
+
     </section>
   );
 }

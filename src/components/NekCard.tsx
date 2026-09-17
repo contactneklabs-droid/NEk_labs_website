@@ -106,6 +106,10 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
     }
   }, [isOpen, onClose]);
 
+  // Prevent QR code hydration mismatch
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <>
       <SocialShareAsset ref={socialAssetRef} />
@@ -273,10 +277,8 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                 <h3 className="text-white font-bold text-xl mb-2 tracking-tight">Scan to Connect</h3>
                 <p className="text-zinc-400 text-sm mb-8 text-center px-4">Point your camera at the QR code to open the NEk LABS portal.</p>
                 
-                <div className="bg-white p-4 rounded-xl shadow-lg mb-8">
-                  {typeof window !== 'undefined' && (
-                    <QRCode value={window.location.origin} size={150} level="H" />
-                  )}
+                <div className="bg-white p-4 rounded-xl shadow-lg mb-8 h-[182px] w-[182px] flex items-center justify-center">
+                  {mounted && <QRCode value={window.location.origin} size={150} level="H" />}
                 </div>
 
                 <button
