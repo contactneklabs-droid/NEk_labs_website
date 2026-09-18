@@ -61,19 +61,10 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
         throw new Error('Native file sharing not supported');
       }
     } catch {
-      // Graceful fallback
-      if (fileToShare) {
-        const fallbackUrl = URL.createObjectURL(fileToShare);
-        const a = document.createElement('a');
-        a.href = fallbackUrl;
-        a.download = 'nek-labs-card.png';
-        a.click();
-        URL.revokeObjectURL(fallbackUrl);
-      }
+      // Graceful fallback: just copy the link
       navigator.clipboard.writeText(url).catch(() => {});
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
-      alert('CARD READY. Image saved to your device. Share it to Instagram!');
     }
     
     setIsGeneratingShare(false);
