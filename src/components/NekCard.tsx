@@ -35,7 +35,6 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
           pixelRatio: 2,
           backgroundColor: '#000000',
           skipFonts: true,
-          useCORS: true,
         });
         if (blob) {
           fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
