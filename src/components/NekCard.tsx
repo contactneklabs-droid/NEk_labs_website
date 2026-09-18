@@ -34,12 +34,14 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
           cacheBust: true,
           pixelRatio: 2,
           backgroundColor: '#000000',
+          skipFonts: true,
+          useCORS: true,
         });
         if (blob) {
           fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
         }
-      } catch (e) {
-        console.error('Failed to generate social asset', e);
+      } catch (e: any) {
+        console.error('Failed to generate social asset', e?.message || e);
       }
     }
 
