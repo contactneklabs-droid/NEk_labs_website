@@ -14,10 +14,12 @@ const MAX_REQUESTS_PER_WINDOW = 5;
 // Initialize Upstash RateLimit if env vars are present
 const hasRedisConfig = process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN;
 let ratelimit: Ratelimit | null = null;
+let redisClient: Redis | null = null;
 
 if (hasRedisConfig) {
+  redisClient = Redis.fromEnv();
   ratelimit = new Ratelimit({
-    redis: Redis.fromEnv(),
+    redis: redisClient,
     limiter: Ratelimit.slidingWindow(5, "1 m"),
     analytics: true,
   });
@@ -77,13 +79,33 @@ export async function POST(request: Request) {
     const finalSource = source || 'BOOK_YOUR_MEET';
 
     // Concurrency Lock per normalized email (Issue #01)
-    while (emailLocks.has(normalizedEmail)) {
-      await emailLocks.get(normalizedEmail);
+    let lockAcquiredRedis = false;
+    let resolveLock: (() => void) | null = null;
+
+    if (redisClient) {
+      const lockKey = `lock:lead:${normalizedEmail}`;
+      const maxRetries = 20; // 10 seconds max wait
+      let retries = 0;
+      while (retries < maxRetries) {
+        const res = await redisClient.set(lockKey, '1', { ex: 10, nx: true });
+        if (res === 'OK' || res) {
+          lockAcquiredRedis = true;
+          break;
+        }
+        await new Promise(r => setTimeout(r, 500));
+        retries++;
+      }
+      if (!lockAcquiredRedis) {
+        return NextResponse.json({ error: 'Request is already processing. Please wait.' }, { status: 429 });
+      }
+    } else {
+      while (emailLocks.has(normalizedEmail)) {
+        await emailLocks.get(normalizedEmail);
+      }
+      
+      const lockPromise = new Promise<void>((resolve) => { resolveLock = resolve; });
+      emailLocks.set(normalizedEmail, lockPromise);
     }
-    
-    let resolveLock: () => void;
-    const lockPromise = new Promise<void>((resolve) => { resolveLock = resolve; });
-    emailLocks.set(normalizedEmail, lockPromise);
 
     try {
       // Google API Configuration Check
@@ -197,12 +219,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     } finally {
       // Safely release the execution lock
-      if (resolveLock!) {
-        resolveLock();
+      if (redisClient && lockAcquiredRedis) {
+        await redisClient.del(`lock:lead:${normalizedEmail}`);
+      } else if (!redisClient) {
+        if (resolveLock) {
+          resolveLock();
+        }
+        emailLocks.delete(normalizedEmail);
       }
-      emailLocks.delete(normalizedEmail);
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Google Sheets POST Error:', error);
     // Generic error to prevent internal leakage (Issue #02)
     return NextResponse.json({ error: 'Unable to process your request at this time.' }, { status: 500 });

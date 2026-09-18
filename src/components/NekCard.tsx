@@ -43,7 +43,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
       }
     }
 
-    const shareData: any = {
+    const shareData: { title: string; text: string; url: string; files?: File[] } = {
       title: "NEk LABS",
       text: "NEk LABS — Web • AI • Automation",
       url: url
@@ -59,7 +59,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
       } else {
         throw new Error('Native file sharing not supported');
       }
-    } catch (err) {
+    } catch {
       // Graceful fallback
       if (fileToShare) {
         const fallbackUrl = URL.createObjectURL(fileToShare);
@@ -98,6 +98,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
         if (e.key === 'Escape') onClose();
       };
       window.addEventListener('keydown', handleEsc);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsFlipped(false); // Reset flip state when opened
       return () => {
         document.body.style.overflow = 'unset';
@@ -108,6 +109,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
   // Prevent QR code hydration mismatch
   const [mounted, setMounted] = useState(false);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
 
   return (

@@ -34,7 +34,7 @@ export default function Footer() {
         setStatus("error");
         setTimeout(() => setStatus("idle"), 3000);
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 3000);
     }
@@ -50,7 +50,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <h2 className="tracking-tight mb-6 flex items-baseline gap-2">
               <span className="text-[48px] font-bold leading-none tracking-tighter">NEk.</span>
-              <span className="text-[36px] font-[cursive] italic font-normal text-zinc-300">Labs</span>
+              <span className="text-[36px] font-playfair italic font-normal text-zinc-300">Labs</span>
             </h2>
             <p className="text-zinc-400 text-[15px]">
               Digital systems for ambitious brands.
@@ -108,7 +108,7 @@ export default function Footer() {
           <div className="lg:col-span-5 order-1 lg:order-2">
             <h3 className="flex items-baseline gap-2 z-10 relative">
               <span className="text-[56px] font-bold leading-none tracking-tighter">NEk.</span>
-              <span className="text-[42px] font-[cursive] italic font-normal text-zinc-300 leading-none">Labs</span>
+              <span className="text-[42px] font-playfair italic font-normal text-zinc-300 leading-none">Labs</span>
             </h3>
             <p className="text-[32px] leading-none font-medium text-zinc-400 mb-8 -mt-1 z-0 relative">in your mailbox</p>
             
@@ -125,7 +125,7 @@ export default function Footer() {
                     <div className="bg-white text-black p-1.5 rounded-full">
                       <Check size={16} strokeWidth={3} />
                     </div>
-                    <span className="text-[15px] font-medium">You're on the list.</span>
+                    <span className="text-[15px] font-medium">You&apos;re on the list.</span>
                   </motion.div>
                 ) : (
                   <motion.form
@@ -171,7 +171,7 @@ export default function Footer() {
               contactneklabs@gmail.com
             </a>
             <div className="text-zinc-500 text-[13px] font-medium space-y-0.5">
-              <p><span className="font-bold">NEk.</span> <span className="font-[cursive] italic font-normal">Labs</span></p>
+              <p><span className="font-bold">NEk.</span> <span className="font-playfair italic font-normal">Labs</span></p>
               <p>{new Date().getFullYear()} © All rights reserved</p>
             </div>
           </div>

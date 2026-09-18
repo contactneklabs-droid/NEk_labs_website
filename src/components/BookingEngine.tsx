@@ -214,7 +214,7 @@ export default function BookingEngine() {
                   <textarea id="details-input" rows={4} placeholder="What are you trying to build, improve, automate or launch?" value={data.details} onChange={e => setData({...data, details: e.target.value})} className="w-full bg-black border border-zinc-800 p-4 text-white focus:outline-none focus:border-white transition-colors resize-none placeholder:text-zinc-800" aria-required="true" />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="goal-input" className="text-xs text-zinc-500 uppercase tracking-widest font-bold">What's the goal? *</label>
+                  <label htmlFor="goal-input" className="text-xs text-zinc-500 uppercase tracking-widest font-bold">What&apos;s the goal? *</label>
                   <textarea id="goal-input" rows={3} placeholder="Desired outcome or metric..." value={data.goal} onChange={e => setData({...data, goal: e.target.value})} className="w-full bg-black border border-zinc-800 p-4 text-white focus:outline-none focus:border-white transition-colors resize-none placeholder:text-zinc-800" aria-required="true" />
                 </div>
               </div>
@@ -223,7 +223,7 @@ export default function BookingEngine() {
 
           {step === 4 && (
             <motion.div key="step4" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-8">
-              <h2 className="text-3xl font-black uppercase tracking-tighter">What's your expected investment?</h2>
+              <h2 className="text-3xl font-black uppercase tracking-tighter">What&apos;s your expected investment?</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" role="radiogroup" aria-label="Budget Options">
                 {BUDGETS.map(b => (
                   <button 
@@ -284,7 +284,7 @@ export default function BookingEngine() {
           {step === 6 && submitSuccess && (
             <motion.div key="success" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="space-y-12 flex flex-col items-center justify-center text-center">
               <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-4">REQUEST RECEIVED.</h2>
-              <p className="text-zinc-400 text-lg md:text-xl font-medium tracking-tight mb-8">WE'VE GOT YOUR DETAILS.</p>
+              <p className="text-zinc-400 text-lg md:text-xl font-medium tracking-tight mb-8">WE&apos;VE GOT YOUR DETAILS.</p>
               
               <div className="border border-white/20 p-8 bg-zinc-950 w-full max-w-md mt-8">
                 <h3 className="text-zinc-500 font-mono text-sm tracking-widest uppercase mb-6">NEXT STEP</h3>

@@ -20,7 +20,7 @@ export default function GokushPhotographyPage() {
           <div className="mb-12">
             <h1 className="flex flex-col tracking-tight mb-6 relative">
               <span className="text-[clamp(3.5rem,10vw,6rem)] font-bold leading-[0.75] tracking-tighter">Gokush</span>
-              <span className="text-[clamp(2.5rem,8vw,4.5rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.1em] md:-mt-[0.2em] lowercase">Photography</span>
+              <span className="text-[clamp(2.5rem,8vw,4.5rem)] font-playfair italic font-normal text-zinc-300 -mt-[0.1em] md:-mt-[0.2em] lowercase">Photography</span>
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 font-light tracking-wide uppercase">
               Real Client Project
@@ -54,7 +54,7 @@ export default function GokushPhotographyPage() {
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
           <div className="z-10 flex flex-col items-center justify-center tracking-tight relative text-center">
             <span className="text-[clamp(5rem,15vw,14rem)] font-bold text-white leading-[0.75] tracking-tighter">Gokush</span>
-            <span className="text-[clamp(3.5rem,10vw,9rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.2em] md:-mt-[0.3em] lowercase">Photography</span>
+            <span className="text-[clamp(3.5rem,10vw,9rem)] font-playfair italic font-normal text-zinc-300 -mt-[0.2em] md:-mt-[0.3em] lowercase">Photography</span>
           </div>
         </div>
       </section>

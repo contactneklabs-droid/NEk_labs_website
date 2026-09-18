@@ -80,7 +80,7 @@ export default function ContactSection() {
                   <p className="text-zinc-400 text-lg mb-8 max-w-sm">
                     Your project details have been received by NEk LABS.
                     <br /><br />
-                    We'll review the information and contact you regarding the next step.
+                    We&apos;ll review the information and contact you regarding the next step.
                   </p>
                 </div>
 

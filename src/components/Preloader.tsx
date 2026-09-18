@@ -3,41 +3,42 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const bootSequence = [
-  "INIT_NEk_SYSTEM...",
-  "ALLOCATING_MEMORY...",
-  "MOUNTING_UI_COMPONENTS...",
-  "ESTABLISHING_SECURE_CONNECTION...",
-  "SYS_OK"
-];
-
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
-  const [textIndex, setTextIndex] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     // Stop scrolling while preloader is active
     document.body.style.overflow = "hidden";
     
-    // Fallback to unlock scrolling in case component unmounts unexpectedly
     const unlockScroll = () => { document.body.style.overflow = "auto"; };
 
-    const interval = setInterval(() => {
-      setTextIndex((prev) => {
-        if (prev < bootSequence.length - 1) return prev + 1;
-        clearInterval(interval);
-        return prev;
-      });
-    }, 300);
+    // Minimal subtle loading simulation
+    const duration = 1800;
+    const interval = 30;
+    const steps = duration / interval;
+    let currentStep = 0;
 
-    const timeout = setTimeout(() => {
-      setLoading(false);
-      unlockScroll();
-    }, 2200);
+    const timer = setInterval(() => {
+      currentStep++;
+      const newProgress = Math.floor((currentStep / steps) * 100);
+      
+      if (currentStep >= steps) {
+        setProgress(100);
+        clearInterval(timer);
+        
+        // Wait briefly after hitting 100 before smoothly fading out
+        setTimeout(() => {
+          setLoading(false);
+          unlockScroll();
+        }, 500);
+      } else {
+        setProgress(newProgress);
+      }
+    }, interval);
 
     return () => {
-      clearInterval(interval);
-      clearTimeout(timeout);
+      clearInterval(timer);
       unlockScroll();
     };
   }, []);
@@ -47,22 +48,30 @@ export default function Preloader() {
       {loading && (
         <motion.div
           key="preloader"
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[9999] bg-black flex flex-col justify-end p-8 font-mono text-xs md:text-sm text-zinc-500 uppercase tracking-widest"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center text-white"
         >
-          <div className="flex flex-col gap-2">
-            {bootSequence.slice(0, textIndex + 1).map((line, i) => (
-              <motion.div 
-                key={i} 
-                initial={{ opacity: 0, x: -10 }} 
-                animate={{ opacity: 1, x: 0 }}
-                className={i === bootSequence.length - 1 ? "text-white font-bold" : ""}
-              >
-                &gt; {line}
-              </motion.div>
-            ))}
+          <div className="flex flex-col items-center justify-center gap-6">
+            {/* Small, elegant logo */}
+            <div className="flex items-center gap-2 font-black tracking-tighter">
+              <span className="text-4xl md:text-5xl text-white uppercase leading-none">NEK.</span>
+              <span className="text-4xl md:text-5xl text-zinc-500 uppercase leading-none">LABS</span>
+            </div>
+
+            {/* Subtle Minimalist Loading Bar */}
+            <div className="w-48 md:w-64 h-[2px] bg-white/10 relative overflow-hidden mt-2">
+              <div 
+                className="absolute top-0 left-0 h-full bg-white transition-all duration-75 ease-out"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+
+            {/* Tiny Mono Progress */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-mono tracking-[0.3em] text-zinc-600 uppercase">
+              INITIALIZING {progress < 10 ? `0${progress}` : progress}%
+            </div>
           </div>
         </motion.div>
       )}

@@ -60,6 +60,7 @@ const SocialShareAsset = forwardRef<HTMLDivElement>((props, ref) => {
         {/* Profile Picture (using standard img for html2canvas reliability) */}
         <div className="flex-1 flex justify-center items-center mb-12">
            <div className="w-[400px] h-[400px] rounded-full overflow-hidden border-4 border-white/10 grayscale">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490961/ChatGPT_Image_Aug_14_2026_11_09_51_PM.png" 
                 alt="Profile"

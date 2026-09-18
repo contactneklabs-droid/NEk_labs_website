@@ -16,6 +16,7 @@ export default function ScrambleText({ text, asMono = false }: { text: string; a
     if (!isInView) return;
 
     // Immediately scramble the text on mount/view to start the effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayText(
       text.split("").map((c) => (c === " " ? " " : CHARS[Math.floor(Math.random() * CHARS.length)])).join("")
     );

@@ -4,7 +4,7 @@ import ProblemSection from "@/components/ProblemSection";
 import SystemSection from "@/components/SystemSection";
 import CapabilitySection from "@/components/CapabilitySection";
 import ProcessSection from "@/components/ProcessSection";
-import ProjectsSection from "@/components/ProjectsSection";
+import FeaturedProjectSection from "@/components/FeaturedProjectSection";
 import MetricsSection from "@/components/MetricsSection";
 import StatementSection from "@/components/StatementSection";
 import FAQSection from "@/components/FAQSection";
@@ -21,7 +21,7 @@ export default function Home() {
       <SystemSection />
       <CapabilitySection />
       <ProcessSection />
-      <ProjectsSection />
+      <FeaturedProjectSection />
       <MetricsSection />
       <StatementSection />
       <FAQSection />

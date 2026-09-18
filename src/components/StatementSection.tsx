@@ -74,7 +74,7 @@ function TerminalContent() {
   );
 }
 
-function TerminalLine({ line, delay }: { line: any, delay: number }) {
+function TerminalLine({ line, delay }: { line: { type: string; text?: string; prefix?: string; varName?: string; value?: string }, delay: number }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function TerminalLine({ line, delay }: { line: any, delay: number }) {
         <span className="text-purple-400">{line.prefix}</span>{" "}
         <span className="text-blue-400">{line.varName}</span>{" "}
         <span className="text-zinc-400">=</span>{" "}
-        <span className="text-green-400">"<TypewriterText text={line.value} />"</span><span className="text-zinc-400">;</span>
+        <span className="text-green-400">&quot;<TypewriterText text={line.value || ""} />&quot;</span><span className="text-zinc-400">;</span>
       </motion.div>
     );
   }

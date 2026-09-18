@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
           <section>
             <h2 className="text-white text-xl font-bold uppercase tracking-tight mb-4">1. Information Collection</h2>
             <p>
-              NEk LABS ("we", "our", or "us") respects your privacy. We collect information you provide directly to us, such as when you fill out a form, request a meeting, or communicate with us. This may include your name, email address, company details, and any other information you choose to provide.
+              NEk LABS (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) respects your privacy. We collect information you provide directly to us, such as when you fill out a form, request a meeting, or communicate with us. This may include your name, email address, company details, and any other information you choose to provide.
             </p>
           </section>
 

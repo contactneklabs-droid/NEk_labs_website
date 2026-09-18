@@ -13,7 +13,7 @@ export default function GetInTouchImage() {
         className="relative w-full py-12 md:py-24 flex justify-center items-center"
       >
         <div className="w-full max-w-7xl mx-auto px-6 relative aspect-[16/9] md:aspect-[2.35/1]">
-          <img
+          {/* eslint-disable-next-line @next/next/no-img-element */} <img
             src="/get-in-touch.jpg"
             alt="Get in touch visual"
             className="absolute inset-0 w-full h-full object-contain object-center"

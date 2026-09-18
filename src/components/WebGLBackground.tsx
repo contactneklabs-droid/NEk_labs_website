@@ -72,11 +72,12 @@ export default function WebGLBackground() {
   const rendererRef = useRef<Renderer | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
     
     const renderer = new Renderer({ alpha: true, dpr: 1 }); // Reduce dpr for performance if needed
     const gl = renderer.gl;
-    containerRef.current.appendChild(gl.canvas);
+    container.appendChild(gl.canvas);
     rendererRef.current = renderer;
 
     const geometry = new Triangle(gl);
@@ -134,8 +135,8 @@ export default function WebGLBackground() {
       cancelAnimationFrame(animationId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
-      if (containerRef.current && gl.canvas.parentNode) {
-        containerRef.current.removeChild(gl.canvas);
+      if (container && gl.canvas.parentNode) {
+        container.removeChild(gl.canvas);
       }
     };
   }, []);

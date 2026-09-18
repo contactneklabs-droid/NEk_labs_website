@@ -1,6 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Image from "next/image";
+
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -21,7 +21,7 @@ export default function NekForgeCaseStudy() {
           <div className="mb-12">
             <h1 className="flex flex-col tracking-tight mb-6 relative">
               <span className="text-[clamp(3.5rem,10vw,6rem)] font-bold leading-[0.75] tracking-tighter">NEk.</span>
-              <span className="text-[clamp(2.5rem,8vw,4.5rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.1em] md:-mt-[0.2em]">Forge</span>
+              <span className="text-[clamp(2.5rem,8vw,4.5rem)] font-playfair italic font-normal text-zinc-300 -mt-[0.1em] md:-mt-[0.2em]">Forge</span>
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 font-light tracking-wide uppercase">
               Website Intelligence & Digital Automation System
@@ -55,7 +55,7 @@ export default function NekForgeCaseStudy() {
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]"></div>
           <div className="z-10 flex flex-col items-center justify-center tracking-tight relative text-center">
             <span className="text-[clamp(5rem,15vw,14rem)] font-bold text-white leading-[0.75] tracking-tighter">NEk.</span>
-            <span className="text-[clamp(3.5rem,10vw,9rem)] font-[cursive] italic font-normal text-zinc-300 -mt-[0.2em] md:-mt-[0.3em]">Forge</span>
+            <span className="text-[clamp(3.5rem,10vw,9rem)] font-playfair italic font-normal text-zinc-300 -mt-[0.2em] md:-mt-[0.3em]">Forge</span>
           </div>
         </div>
       </section>
@@ -74,7 +74,7 @@ export default function NekForgeCaseStudy() {
               Instead of treating a website audit as a static list of scores, NEk Forge is designed around a simple principle:
             </p>
             <blockquote className="border-l-4 border-white pl-6 my-8 text-2xl font-bold uppercase tracking-tight">
-              "Find what matters. Understand why. Know what to change."
+              &quot;Find what matters. Understand why. Know what to change.&quot;
             </blockquote>
             <p>
               The system combines deterministic website analysis, browser automation, structured evidence collection, local AI analysis, report generation, and workflow automation into a single environment.
@@ -278,9 +278,9 @@ export default function NekForgeCaseStudy() {
 
             <div className="mt-16 bg-white text-black p-8">
               <p className="text-lg font-bold uppercase tracking-widest mb-4">This changes the role of an audit from:</p>
-              <p className="text-xl font-light text-zinc-600 mb-6 italic">“Here is what's wrong.”</p>
+              <p className="text-xl font-light text-zinc-600 mb-6 italic">&ldquo;Here is what&apos;s wrong.&rdquo;</p>
               <p className="text-lg font-bold uppercase tracking-widest mb-4">to:</p>
-              <p className="text-2xl font-bold uppercase tracking-tight">“Here is what's wrong, why it matters, what to prioritize, and what comes next.”</p>
+              <p className="text-2xl font-bold uppercase tracking-tight">&ldquo;Here is what&apos;s wrong, why it matters, what to prioritize, and what comes next.&rdquo;</p>
             </div>
           </div>
         </section>

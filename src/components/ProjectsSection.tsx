@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useRef } from "react";
 
 const projects = [
@@ -161,10 +162,11 @@ export default function ProjectsSection() {
             <Link href={`/work/${proj.slug}`} className="block w-full aspect-[4/3] bg-black border border-white/10 hover:border-white/30 transition-colors duration-500 relative overflow-hidden flex flex-col items-center justify-center group/image">
               
               {/* Monochromatic Background Image */}
-              <img 
+              <Image 
                 src={proj.image} 
                 alt={proj.title}
-                loading="lazy"
+                fill
+                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 60vw, 45vw"
                 className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity grayscale group-hover/image:scale-105 group-hover/image:opacity-40 transition-all duration-1000 ease-out"
               />
 
@@ -176,7 +178,7 @@ export default function ProjectsSection() {
                 {proj.title.startsWith("NEk ") ? (
                   <>
                     <span>NEk.</span>
-                    <span className="font-[cursive] italic font-normal text-zinc-300 text-[clamp(1.8rem,4vw,3.5rem)] lowercase">{proj.title.replace("NEk ", "")}</span>
+                    <span className="font-playfair italic font-normal text-zinc-300 text-[clamp(1.8rem,4vw,3.5rem)] lowercase">{proj.title.replace("NEk ", "")}</span>
                   </>
                 ) : (
                   <span>{proj.title}</span>

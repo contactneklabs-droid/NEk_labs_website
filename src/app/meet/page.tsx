@@ -15,10 +15,10 @@ export default function MeetPage() {
               NEk / 002<br/>DISCOVERY CALL
             </div>
             <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-4">
-              LET'S MEET.
+              LET&apos;S MEET.
             </h1>
             <p className="text-zinc-400 text-xl md:text-2xl font-medium tracking-tight max-w-lg">
-              Tell us what you're building.<br/>We'll figure out what's next.
+              Tell us what you&apos;re building.<br/>We&apos;ll figure out what&apos;s next.
             </p>
           </div>
           <div className="text-right border-l-2 border-zinc-800 pl-6 h-fit hidden md:block">

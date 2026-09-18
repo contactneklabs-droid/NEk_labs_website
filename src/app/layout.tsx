@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import BackToTop from "@/components/BackToTop";
 import Preloader from "@/components/Preloader";
 import SystemSignatures from "@/components/SystemSignatures";
@@ -12,6 +12,13 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "700", "900"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  display: "swap",
+  style: ["italic"],
 });
 
 export const metadata: Metadata = {
@@ -63,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       {/* suppressHydrationWarning prevents browser extensions (like Grammarly) from crashing Next.js hydration */}
       <body className="antialiased min-h-screen bg-black text-white selection:bg-white selection:text-black font-sans" suppressHydrationWarning>
         <PostHogProvider>
