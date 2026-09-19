@@ -39,7 +39,7 @@ const SocialShareAsset = forwardRef<HTMLDivElement, SocialShareAssetProps>(({ is
               <div className="relative h-28 w-56 flex items-center justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490961/ChatGPT_Image_Aug_14_2026_11_09_51_PM.png"
+                  src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789845061/WhatsApp_Image_2026-09-20_at_00.40.34.jpg"
                   alt="NEk LABS"
                   style={{ objectFit: 'contain', transform: 'scale(1.25)', opacity: 0.9, width: '100%', height: '100%' }}
                 />
