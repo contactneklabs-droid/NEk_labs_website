@@ -2,27 +2,28 @@ export const pricingSystem = [
   {
     id: "01",
     name: "WEB",
-    price: "Starting from ₹XX,XXX",
+    price: "₹10,999",
+    positioning: "Digital experiences built for your business.",
     scope: [
       "Landing Pages",
-      "Business Websites",
       "Portfolio Websites",
-      "Custom Web Experiences",
-      "Responsive Implementation"
+      "Business Websites",
+      "Custom Web Experiences"
     ],
     ctaText: "VIEW WEB SCOPE ↗",
     ctaLink: "#what-affects-price"
   },
   {
     id: "02",
-    name: "AUTOMATION",
-    price: "Starting from ₹XX,XXX",
+    name: "AUTOMATE",
+    price: "₹14,999",
+    positioning: "Turn repetitive work into connected systems.",
     scope: [
       "Workflow Automation",
       "AI Workflows",
-      "Internal Tools",
       "API Integrations",
-      "Business Automation"
+      "Lead Automation",
+      "Business Process Automation"
     ],
     ctaText: "VIEW AUTOMATION SCOPE ↗",
     ctaLink: "#what-affects-price"
@@ -31,12 +32,14 @@ export const pricingSystem = [
     id: "03",
     name: "DIGITAL SYSTEMS",
     price: "CUSTOM",
+    positioning: "When your requirements go beyond a package.",
     scope: [
       "Web Applications",
       "Dashboards",
-      "Advanced Integrations",
+      "AI Systems",
       "Custom Platforms",
-      "Complex Digital Systems"
+      "Advanced Integrations",
+      "Internal Business Tools"
     ],
     ctaText: "BOOK YOUR MEET ↗",
     ctaLink: "/meet"

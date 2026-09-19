@@ -34,6 +34,11 @@ export default function PricingSystem() {
                 <div className="text-xl font-bold tracking-tight text-zinc-300 group-hover:text-zinc-800 transition-colors">
                   {plan.price}
                 </div>
+                {plan.positioning && (
+                  <p className="mt-4 text-sm text-zinc-500 group-hover:text-zinc-600 transition-colors">
+                    {plan.positioning}
+                  </p>
+                )}
               </div>
 
               {/* Scope */}
@@ -63,6 +68,12 @@ export default function PricingSystem() {
               </Link>
             </motion.div>
           ))}
+        </div>
+        
+        <div className="mt-12 text-center">
+          <p className="text-sm text-zinc-600 font-medium">
+            Final pricing depends on project scope, complexity, integrations and requirements.
+          </p>
         </div>
       </div>
     </section>
