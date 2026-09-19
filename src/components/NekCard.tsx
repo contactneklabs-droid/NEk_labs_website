@@ -16,7 +16,8 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const [copied, setCopied] = useState(false);
   const [isGeneratingShare, setIsGeneratingShare] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const frontRef = useRef<HTMLDivElement>(null);
+  const backRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
     if (isGeneratingShare) return;
@@ -24,11 +25,13 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
     const url = `${window.location.origin}/bharath`;
     let fileToShare: File | null = null;
     
-    // Generate the image directly from the visible card UI
-    if (cardRef.current) {
+    // Generate the image directly from the visible face of the card
+    const targetRef = isFlipped ? backRef.current : frontRef.current;
+    
+    if (targetRef) {
       try {
         const { toBlob } = await import('html-to-image');
-        const blob = await toBlob(cardRef.current, {
+        const blob = await toBlob(targetRef, {
           cacheBust: true,
           pixelRatio: 3, // Higher quality for the detailed card UI
           skipFonts: true,
@@ -122,7 +125,6 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
           {/* 3D Container */}
           <motion.div
-            ref={cardRef}
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -140,6 +142,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
               
               {/* ===================== FRONT FACE ===================== */}
               <div 
+                ref={frontRef}
                 className="absolute inset-0 w-full h-full bg-black/40 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),0_0_20px_rgba(255,255,255,0.05)] ring-1 ring-white/5"
                 style={{ backfaceVisibility: "hidden" }}
               >
@@ -262,6 +265,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
               {/* ===================== BACK FACE ===================== */}
               <div 
+                ref={backRef}
                 className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col p-6 items-center justify-center shadow-2xl ring-1 ring-white/5"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               >
