@@ -156,7 +156,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                 <div className="h-[220px] bg-black relative w-full flex items-center justify-center border-b border-white/5">
                   <div className="relative h-28 w-56 flex items-center justify-center">
                     <Image
-                      src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789845061/WhatsApp_Image_2026-09-20_at_00.40.34.jpg"
+                      src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490961/ChatGPT_Image_Aug_14_2026_11_09_51_PM.png"
                       alt="NEk LABS"
                       fill
                       sizes="150px"
