@@ -6,6 +6,7 @@ import { X, BadgeCheck, Share2, Download, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "react-qr-code";
+import SocialShareAsset from "./SocialShareAsset";
 
 interface NekCardProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const frontRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
+  const socialAssetRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
     if (isGeneratingShare) return;
@@ -25,27 +27,20 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
     const url = `${window.location.origin}/bharath`;
     let fileToShare: File | null = null;
     
-    // Generate the image directly from the visible face of the card
-    const targetRef = isFlipped ? backRef.current : frontRef.current;
-    
-    if (targetRef) {
+    // Generate the dedicated Social Share Asset optimized for Instagram Stories
+    if (socialAssetRef.current) {
       try {
         const { toBlob } = await import('html-to-image');
-        const blob = await toBlob(targetRef, {
+        const blob = await toBlob(socialAssetRef.current, {
           cacheBust: true,
-          pixelRatio: 3, // Higher quality for the detailed card UI
+          pixelRatio: 2,
           skipFonts: true,
-          // Removed forced background color so the card's natural styling is preserved
-          style: {
-            transform: 'none', // Prevent 3D rotation issues during capture
-            margin: '0'
-          }
         });
         if (blob) {
           fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
         }
       } catch (e) {
-        console.error('Failed to generate card asset', e instanceof Error ? e.message : e);
+        console.error('Failed to generate social asset', e instanceof Error ? e.message : e);
       }
     }
 
@@ -111,6 +106,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
   return (
     <>
+      <SocialShareAsset ref={socialAssetRef} isFlipped={isFlipped} />
       <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-[1000px]" aria-modal="true" role="dialog">
