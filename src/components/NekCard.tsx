@@ -39,8 +39,8 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
         if (blob) {
           fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
         }
-      } catch (e: any) {
-        console.error('Failed to generate social asset', e?.message || e);
+      } catch (e) {
+        console.error('Failed to generate social asset', e instanceof Error ? e.message : e);
       }
     }
 
