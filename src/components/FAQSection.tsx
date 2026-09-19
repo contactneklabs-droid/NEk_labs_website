@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
-const faqs = [
+const defaultFaqs = [
   { q: "What does NEk. Labs do?", a: "We are an experimental technology laboratory. We build high-performance web applications, integrate AI systems, and automate business workflows." },
   { q: "Who do you work with?", a: "We partner with forward-thinking brands, enterprise clients, and ambitious startups looking to engineer a competitive advantage through technology." },
   { q: "Do you build custom websites?", a: "Yes. We engineer bespoke digital platforms prioritizing performance, scale, and brutalist design aesthetics." },
@@ -15,7 +15,11 @@ const faqs = [
   { q: "How much does a project cost?", a: "Our engagements are highly customized. Project budgets vary based on complexity, scale, and the technical requirements of the build." },
 ];
 
-export default function FAQSection() {
+interface FAQSectionProps {
+  items?: { q: string; a: string }[];
+}
+
+export default function FAQSection({ items = defaultFaqs }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -26,7 +30,7 @@ export default function FAQSection() {
         </h2>
 
         <div className="space-y-4">
-          {faqs.map((faq, idx) => (
+          {items.map((faq, idx) => (
             <div key={idx} className="border border-zinc-800 bg-zinc-950">
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}

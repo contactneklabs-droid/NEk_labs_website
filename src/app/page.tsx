@@ -8,7 +8,6 @@ import FeaturedProjectSection from "@/components/FeaturedProjectSection";
 import MetricsSection from "@/components/MetricsSection";
 import StatementSection from "@/components/StatementSection";
 import FAQSection from "@/components/FAQSection";
-import PricingSection from "@/components/PricingSection";
 import ContactSection from "@/components/ContactSection";
 import GetInTouchImage from "@/components/GetInTouchImage";
 import Footer from "@/components/Footer";
@@ -25,7 +24,6 @@ export default function Home() {
       <FeaturedProjectSection />
       <MetricsSection />
       <StatementSection />
-      <PricingSection />
       <FAQSection />
       <ContactSection />
       <GetInTouchImage />

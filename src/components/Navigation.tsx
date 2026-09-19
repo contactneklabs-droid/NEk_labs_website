@@ -112,6 +112,9 @@ export default function Navigation() {
             <Link href="#services" className="hover:text-zinc-400 transition-colors">
               SERVICES
             </Link>
+            <Link href="/pricing" className="hover:text-zinc-400 transition-colors">
+              PRICING
+            </Link>
             <Link href="/studio" className="hover:text-zinc-400 transition-colors">
               STUDIO
             </Link>
@@ -228,8 +231,15 @@ export default function Navigation() {
                     </Link>
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Link href="#contact" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter border-b border-white/10 pb-8">
+                    <Link href="/pricing" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
                       <span className="text-sm font-mono text-zinc-500">04</span>
+                      <span className="group-hover:text-zinc-400 transition-colors flex-1">PRICING</span>
+                      <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
+                    </Link>
+                  </motion.div>
+                  <motion.div variants={itemVariants}>
+                    <Link href="#contact" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter border-b border-white/10 pb-8">
+                      <span className="text-sm font-mono text-zinc-500">05</span>
                       <span className="group-hover:text-zinc-400 transition-colors flex-1">CONTACT</span>
                       <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
                     </Link>
