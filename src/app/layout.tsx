@@ -22,8 +22,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  // TODO: Replace with actual production domain before final deployment
-  metadataBase: new URL("https://INSERT_PRODUCTION_DOMAIN_HERE.com"),
+  metadataBase: new URL("https://nek-labs-website.vercel.app"),
   title: "NEk LABS | Digital Systems & Creative Technology",
   description:
     "Experimental technology laboratory building digital systems for the next generation of brands.",

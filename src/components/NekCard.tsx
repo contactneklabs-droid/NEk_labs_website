@@ -2,11 +2,10 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, BadgeCheck, Share2, Download, RotateCcw } from "lucide-react";
+import { X, BadgeCheck, Download, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "react-qr-code";
-import SocialShareAsset from "./SocialShareAsset";
 
 interface NekCardProps {
   isOpen: boolean;
@@ -14,61 +13,7 @@ interface NekCardProps {
 }
 
 export default function NekCard({ isOpen, onClose }: NekCardProps) {
-  const [copied, setCopied] = useState(false);
-  const [isGeneratingShare, setIsGeneratingShare] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
-  const frontRef = useRef<HTMLDivElement>(null);
-  const backRef = useRef<HTMLDivElement>(null);
-  const socialAssetRef = useRef<HTMLDivElement>(null);
-
-  const handleShare = async () => {
-    if (isGeneratingShare) return;
-    setIsGeneratingShare(true);
-    const url = `${window.location.origin}/bharath`;
-    let fileToShare: File | null = null;
-    
-    // Generate the dedicated Social Share Asset optimized for Instagram Stories
-    if (socialAssetRef.current) {
-      try {
-        const { toBlob } = await import('html-to-image');
-        const blob = await toBlob(socialAssetRef.current, {
-          cacheBust: true,
-          pixelRatio: 2,
-          skipFonts: true,
-        });
-        if (blob) {
-          fileToShare = new File([blob], 'nek-labs-card.png', { type: 'image/png' });
-        }
-      } catch (e) {
-        console.error('Failed to generate social asset', e instanceof Error ? e.message : e);
-      }
-    }
-
-    const shareData: { title: string; text: string; url: string; files?: File[] } = {
-      title: "NEk LABS",
-      text: "NEk LABS — Web • AI • Automation",
-      url: url
-    };
-    
-    if (fileToShare) {
-      shareData.files = [fileToShare];
-    }
-
-    try {
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        await navigator.share(shareData);
-      } else {
-        throw new Error('Native file sharing not supported');
-      }
-    } catch {
-      // Graceful fallback: just copy the link
-      navigator.clipboard.writeText(url).catch(() => {});
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
-    }
-    
-    setIsGeneratingShare(false);
-  };
 
   const downloadVCF = () => {
     const vcfText = `BEGIN:VCARD\nVERSION:3.0\nN:Chavan;Bharath;;;\nFN:Bharath Chavan\nORG:NEk LABS\nTITLE:Founder, Builder, Creator\nEMAIL:contactneklabs@gmail.com\nURL:${window.location.origin}\nEND:VCARD`;
@@ -105,9 +50,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <>
-      <SocialShareAsset ref={socialAssetRef} isFlipped={isFlipped} />
-      <AnimatePresence>
+    <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-[1000px]" aria-modal="true" role="dialog">
           {/* Backdrop */}
@@ -138,7 +81,6 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
               
               {/* ===================== FRONT FACE ===================== */}
               <div 
-                ref={frontRef}
                 className="absolute inset-0 w-full h-full bg-black/40 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),0_0_20px_rgba(255,255,255,0.05)] ring-1 ring-white/5"
                 style={{ backfaceVisibility: "hidden" }}
               >
@@ -198,43 +140,26 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                 {/* Bottom Content Area */}
                 <div className="flex-1 p-6 pt-4 flex flex-col justify-between">
                   {/* Action Buttons */}
-                  <div className="flex justify-end items-center gap-3">
-                    <button
-                      onClick={handleShare}
-                      disabled={isGeneratingShare}
-                      className="h-10 rounded-full border border-white/10 flex items-center justify-center text-zinc-400 hover:bg-white/10 hover:text-white transition-all relative group px-4 overflow-hidden"
+                  <div className="flex justify-end items-center gap-2">
+                    {/* Share via WhatsApp Button */}
+                    <a
+                      href="https://wa.me/?text=Check%20out%20NEk%20LABS%3A%20https%3A%2F%2Fnek-labs-website.vercel.app%2Fbharath"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white hover:bg-[#25D366] hover:border-[#25D366] transition-all relative px-4 flex-shrink-0 gap-2"
+                      title="Share via WhatsApp"
                     >
-                      <AnimatePresence mode="wait">
-                        {isGeneratingShare ? (
-                          <motion.span
-                            key="generating"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="text-[10px] font-bold tracking-widest uppercase text-white"
-                          >
-                            PREPARING CARD...
-                          </motion.span>
-                        ) : (
-                          <motion.div
-                            key="default"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="flex items-center gap-2"
-                          >
-                            <Share2 size={16} />
-                            {copied && <span className="text-[10px] font-bold tracking-widest text-white uppercase ml-1">CARD READY</span>}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </button>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
+                      <span className="text-[10px] font-bold tracking-widest uppercase mt-[1px]">Share</span>
+                    </a>
+                    
+                    {/* Book a Meet (Compact) */}
                     <Link
                       href="/meet"
                       onClick={onClose}
-                      className="bg-white text-black px-6 py-2.5 rounded-full font-bold text-sm hover:bg-zinc-200 transition-colors"
+                      className="bg-white text-black px-4 py-2.5 h-10 rounded-full font-bold text-sm hover:bg-zinc-200 transition-colors ml-1"
                     >
-                      Book A Meet
+                      Meet
                     </Link>
                   </div>
 
@@ -261,7 +186,6 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
 
               {/* ===================== BACK FACE ===================== */}
               <div 
-                ref={backRef}
                 className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col p-6 items-center justify-center shadow-2xl ring-1 ring-white/5"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               >
@@ -289,6 +213,5 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
         </div>
       )}
     </AnimatePresence>
-    </>
   );
 }

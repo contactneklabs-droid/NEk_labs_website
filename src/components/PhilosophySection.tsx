@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function PhilosophySection() {
   return (
@@ -8,12 +9,38 @@ export default function PhilosophySection() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           
-          {/* Header Column */}
-          <div className="md:col-span-4">
-            <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-zinc-500 mb-4 flex items-center gap-4">
+          {/* Header Column with Image */}
+          <div className="md:col-span-4 flex flex-col">
+            <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-zinc-500 mb-8 flex items-center gap-4">
               <span className="w-8 h-[1px] bg-zinc-500"></span> 
               Core Ethos
             </h2>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full aspect-[3/4] overflow-hidden bg-zinc-900 hidden md:block"
+            >
+              <Image 
+                src="https://res.cloudinary.com/wak9cipn/image/upload/v1789845061/WhatsApp_Image_2026-09-20_at_00.40.34.jpg"
+                alt="Founder at NEk Labs"
+                fill
+                className="object-cover grayscale mix-blend-luminosity opacity-80"
+              />
+              {/* Noise overlay */}
+              <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+              
+              <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                <span className="text-[10px] font-mono text-zinc-400 tracking-widest uppercase">
+                  LEAD ENGINEER
+                </span>
+                <span className="text-[10px] font-mono text-zinc-400 tracking-widest uppercase">
+                  EST. 2024
+                </span>
+              </div>
+            </motion.div>
           </div>
 
           {/* Content Column */}

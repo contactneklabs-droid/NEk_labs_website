@@ -115,8 +115,8 @@ export default function Navigation() {
             <Link href="/pricing" className="hover:text-zinc-400 transition-colors">
               PRICING
             </Link>
-            <Link href="/studio" className="hover:text-zinc-400 transition-colors">
-              STUDIO
+            <Link href="/about" className="hover:text-zinc-400 transition-colors">
+              ABOUT
             </Link>
             <Link href="/#contact" className="hover:text-zinc-400 transition-colors">
               CONTACT
@@ -223,9 +223,9 @@ export default function Navigation() {
                     </Link>
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Link href="/studio" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
+                    <Link href="/about" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
                       <span className="text-sm font-mono text-zinc-500">03</span>
-                      <span className="group-hover:text-zinc-400 transition-colors flex-1">STUDIO</span>
+                      <span className="group-hover:text-zinc-400 transition-colors flex-1">ABOUT</span>
                       <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
                     </Link>
                   </motion.div>
