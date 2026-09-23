@@ -14,7 +14,7 @@ export default function Preloader() {
     const unlockScroll = () => { document.body.style.overflow = "auto"; };
 
     // Minimal subtle loading simulation
-    const duration = 1800;
+    const duration = 2000;
     const interval = 30;
     const steps = duration / interval;
     let currentStep = 0;
@@ -31,7 +31,7 @@ export default function Preloader() {
         setTimeout(() => {
           setLoading(false);
           unlockScroll();
-        }, 500);
+        }, 600);
       } else {
         setProgress(newProgress);
       }
@@ -49,30 +49,45 @@ export default function Preloader() {
         <motion.div
           key="preloader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center text-white"
+          exit={{ opacity: 0, scale: 1.05 }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[9999] bg-[#050505] flex flex-col items-center justify-center text-white overflow-hidden"
         >
-          <div className="flex flex-col items-center justify-center gap-6">
-            {/* Small, elegant logo */}
-            <div className="flex items-center gap-2 font-black tracking-tighter">
-              <span className="text-4xl md:text-5xl text-white uppercase leading-none">NEK.</span>
-              <span className="text-4xl md:text-5xl text-zinc-500 uppercase leading-none">LABS</span>
+          {/* Main Kinetic Text Fill */}
+          <div className="relative font-black tracking-tighter text-6xl md:text-8xl lg:text-[10rem] uppercase leading-none select-none flex items-center justify-center">
+            
+            {/* Background Layer (Faint Dark Gray) */}
+            <div className="text-zinc-900 flex whitespace-nowrap">
+              <span>NEK.</span>
+              <span className="ml-2 md:ml-4">LABS</span>
+            </div>
+            
+            {/* Foreground Fill Layer (Pure White) */}
+            <div 
+              className="absolute top-0 left-0 h-full flex whitespace-nowrap overflow-hidden transition-all duration-75 ease-out text-white"
+              style={{ width: `${progress}%` }}
+            >
+              <span>NEK.</span>
+              <span className="ml-2 md:ml-4">LABS</span>
             </div>
 
-            {/* Subtle Minimalist Loading Bar */}
-            <div className="w-48 md:w-64 h-[2px] bg-white/10 relative overflow-hidden mt-2">
-              <div 
-                className="absolute top-0 left-0 h-full bg-white transition-all duration-75 ease-out"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-
-            {/* Tiny Mono Progress */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-mono tracking-[0.3em] text-zinc-600 uppercase">
-              INITIALIZING {progress < 10 ? `0${progress}` : progress}%
-            </div>
           </div>
+
+          {/* Tiny Mono Progress */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          >
+            <div className="text-[10px] font-mono tracking-[0.4em] text-zinc-600 uppercase">
+              INITIALIZING
+            </div>
+            <div className="text-sm font-mono tracking-widest text-zinc-400">
+              {progress < 10 ? `0${progress}` : progress}%
+            </div>
+          </motion.div>
+          
         </motion.div>
       )}
     </AnimatePresence>
