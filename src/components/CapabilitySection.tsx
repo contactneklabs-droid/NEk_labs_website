@@ -35,6 +35,12 @@ const capabilities = [
     title: "DIGITAL PRODUCTS",
     description: "End-to-end software engineering. We architect and develop full-stack SaaS applications, complex dashboards, and internal business tools using modern frameworks and specialized backend technologies.",
     link: "/meet"
+  },
+  {
+    id: "06",
+    title: "E-COMMERCE WEBSITES",
+    description: "We build scalable, high-performance e-commerce platforms. From custom storefronts to complex inventory management systems, we deliver seamless shopping experiences that drive conversions and accelerate digital revenue.",
+    link: "/meet"
   }
 ];
 
