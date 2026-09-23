@@ -106,10 +106,10 @@ export default function Navigation() {
 
           {/* Desktop Nav (Unchanged) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium tracking-wide">
-            <Link href="#work" className="hover:text-zinc-400 transition-colors">
+            <Link href="/#work" className="hover:text-zinc-400 transition-colors">
               WORK
             </Link>
-            <Link href="#services" className="hover:text-zinc-400 transition-colors">
+            <Link href="/#services" className="hover:text-zinc-400 transition-colors">
               SERVICES
             </Link>
             <Link href="/pricing" className="hover:text-zinc-400 transition-colors">
@@ -118,7 +118,7 @@ export default function Navigation() {
             <Link href="/studio" className="hover:text-zinc-400 transition-colors">
               STUDIO
             </Link>
-            <Link href="#contact" className="hover:text-zinc-400 transition-colors">
+            <Link href="/#contact" className="hover:text-zinc-400 transition-colors">
               CONTACT
             </Link>
           </nav>
@@ -167,8 +167,7 @@ export default function Navigation() {
             aria-expanded={isOpen}
             aria-label="Open Menu"
           >
-            <span>INDEX</span>
-            <span className="text-zinc-500 font-mono">01</span>
+            <span>MENU</span>
           </button>
         </div>
       </header>
@@ -204,20 +203,20 @@ export default function Navigation() {
               <div className="flex flex-col">
                 <motion.div variants={itemVariants} className="border-b border-white/10 pb-2 mb-8">
                   <span className="text-xs text-zinc-500 font-bold uppercase tracking-widest">
-                    INDEX
+                    MENU
                   </span>
                 </motion.div>
                 
                 <div className="flex flex-col gap-6">
                   <motion.div variants={itemVariants}>
-                    <Link href="#work" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
+                    <Link href="/#work" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
                       <span className="text-sm font-mono text-zinc-500">01</span>
                       <span className="group-hover:text-zinc-400 transition-colors flex-1">WORK</span>
                       <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
                     </Link>
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Link href="#services" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
+                    <Link href="/#services" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter">
                       <span className="text-sm font-mono text-zinc-500">02</span>
                       <span className="group-hover:text-zinc-400 transition-colors flex-1">SERVICES</span>
                       <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
@@ -238,7 +237,7 @@ export default function Navigation() {
                     </Link>
                   </motion.div>
                   <motion.div variants={itemVariants}>
-                    <Link href="#contact" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter border-b border-white/10 pb-8">
+                    <Link href="/#contact" onClick={() => setIsOpen(false)} className="group flex items-center gap-4 text-4xl font-black uppercase tracking-tighter border-b border-white/10 pb-8">
                       <span className="text-sm font-mono text-zinc-500">05</span>
                       <span className="group-hover:text-zinc-400 transition-colors flex-1">CONTACT</span>
                       <ArrowUpRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
