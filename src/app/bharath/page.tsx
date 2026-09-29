@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bharath Chavan — Founder @ NEk LABS",
     description: "View my digital business card, contact details, and book a meeting.",
-    url: "https://nek-labs-website.vercel.app/bharath",
+    url: "https://neklabs.vercel.app/bharath",
     siteName: "NEk LABS",
     images: [
       {

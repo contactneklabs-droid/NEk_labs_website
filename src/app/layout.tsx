@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nek-labs-website.vercel.app"),
+  metadataBase: new URL("https://neklabs.vercel.app"),
   title: "NEk LABS | Digital Systems & Creative Technology",
   description:
     "Experimental technology laboratory building digital systems for the next generation of brands.",

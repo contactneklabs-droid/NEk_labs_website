@@ -171,7 +171,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                     {/* Action Buttons */}
                     <div className="flex items-center gap-2">
                       <a
-                        href="https://wa.me/?text=Check%20out%20NEk%20LABS%3A%20https%3A%2F%2Fnek-labs-website.vercel.app%2Fbharath"
+                        href="https://wa.me/?text=Check%20out%20NEk%20LABS%3A%20https%3A%2F%2Fneklabs.vercel.app%2Fbharath"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded border border-[#333] bg-[#111] flex items-center justify-center text-zinc-400 hover:text-[#25D366] hover:border-[#25D366] transition-colors"
