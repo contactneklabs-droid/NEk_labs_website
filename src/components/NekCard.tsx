@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, BadgeCheck, Download, RotateCcw } from "lucide-react";
+import { X, RotateCcw, Download, Terminal, Wifi } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "react-qr-code";
@@ -14,6 +14,9 @@ interface NekCardProps {
 
 export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   const downloadVCF = () => {
     const vcfText = `BEGIN:VCARD\nVERSION:3.0\nN:Chavan;Bharath;;;\nFN:Bharath Chavan\nORG:NEk LABS\nTITLE:Founder, Builder, Creator\nEMAIL:contactneklabs@gmail.com\nURL:${window.location.origin}\nEND:VCARD`;
@@ -36,7 +39,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
       };
       window.addEventListener('keydown', handleEsc);
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsFlipped(false); // Reset flip state when opened
+      setIsFlipped(false);
       return () => {
         document.body.style.overflow = 'unset';
         window.removeEventListener('keydown', handleEsc);
@@ -44,167 +47,182 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
     }
   }, [isOpen, onClose]);
 
-  // Prevent QR code hydration mismatch
-  const [mounted, setMounted] = useState(false);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => setMounted(true), []);
-
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-[1000px]" aria-modal="true" role="dialog">
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 perspective-[1200px]" aria-modal="true" role="dialog">
+          {/* Subtle Dark Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
           />
 
           {/* 3D Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 120 }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative w-full max-w-[360px] h-[580px] rounded-2xl group"
+            className="relative w-full max-w-[360px] h-[580px] group"
           >
             {/* 3D Flipper */}
             <motion.div
               animate={{ rotateY: isFlipped ? 180 : 0 }}
-              transition={{ duration: 0.6, type: "spring", stiffness: 80, damping: 20 }}
+              transition={{ duration: 0.7, type: "spring", stiffness: 70, damping: 20 }}
               className="w-full h-full relative"
               style={{ transformStyle: "preserve-3d" }}
             >
               
-              {/* ===================== FRONT FACE ===================== */}
+              {/* ===================== FRONT FACE (STEALTH ID) ===================== */}
               <div 
-                className="absolute inset-0 w-full h-full bg-black/40 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8),0_0_20px_rgba(255,255,255,0.05)] ring-1 ring-white/5"
+                className="absolute inset-0 w-full h-full bg-[#0a0a0a] border border-[#222] rounded-2xl overflow-hidden flex flex-col shadow-[0_30px_60px_-15px_rgba(0,0,0,1)]"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                {/* Flip Button */}
-                <button onClick={() => setIsFlipped(true)} className="absolute top-4 left-4 z-20 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors" aria-label="Flip Card">
-                  <RotateCcw size={16} />
-                </button>
-
-                {/* Close Button */}
-                <button onClick={onClose} className="absolute top-4 right-4 z-20 w-8 h-8 bg-black/50 backdrop-blur-md rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-colors">
-                  <X size={16} />
-                </button>
-
-                {/* Cover Image Area */}
-                <div className="h-[220px] bg-black relative w-full flex items-center justify-center border-b border-white/5">
-                  <div className="relative h-28 w-56 flex items-center justify-center">
-                    <Image
-                      src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490961/ChatGPT_Image_Aug_14_2026_11_09_51_PM.png"
-                      alt="NEk LABS"
-                      fill
-                      sizes="150px"
-                      priority
-                      className="object-contain select-none pointer-events-none scale-125 opacity-90"
-                      draggable={false}
-                    />
+                
+                {/* ID Header (Terminal Vibe) */}
+                <div className="h-12 border-b border-[#222] flex items-center justify-between px-4 bg-[#0f0f0f] relative overflow-hidden">
+                  {/* Scanline overlay effect */}
+                  <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+                  
+                  <div className="flex items-center gap-2">
+                    <Terminal size={14} className="text-zinc-500" />
+                    <span className="font-mono text-[10px] text-zinc-500 tracking-widest uppercase">ID: NEK-001</span>
                   </div>
-
-                  {/* Social Icons */}
-                  <div className="absolute bottom-4 right-6 flex items-center gap-4 text-white/50">
-                    <a href="https://www.instagram.com/nek_labs/" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>
-                    </a>
-                    <a href="https://wa.me/917411671684?text=Hey%20NEk%20LABS!%20I'm%20interested%20in%20working%20with%20you%20to%20level%20up%20my%20digital%20systems." target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
-                    </a>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contactneklabs@gmail.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
-                    </a>
+                  
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-[10px] text-zinc-500 tracking-widest uppercase">SYS: ONLINE</span>
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
                   </div>
                 </div>
 
-                {/* Profile Picture */}
-                <div className="absolute top-[170px] left-6 w-24 h-24 bg-black border-[2px] border-white/20 rounded-full flex items-center justify-center overflow-hidden z-10 shadow-2xl">
-                  <div className="relative w-full h-full">
-                    <Image
-                      src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490948/IMG_9303-3.jpg"
-                      alt="Profile Picture"
-                      fill
-                      sizes="96px"
-                      priority
-                      className="object-cover select-none pointer-events-none"
-                      draggable={false}
-                    />
-                  </div>
+                {/* Flip & Close Buttons (Floating over image) */}
+                <div className="absolute top-[60px] right-4 flex flex-col gap-2 z-20">
+                  <button onClick={() => setIsFlipped(true)} className="w-8 h-8 bg-black/60 backdrop-blur-md border border-[#333] rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-colors" aria-label="Flip Card">
+                    <RotateCcw size={14} />
+                  </button>
+                  <button onClick={onClose} className="w-8 h-8 bg-black/60 backdrop-blur-md border border-[#333] rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-colors" aria-label="Close">
+                    <X size={14} />
+                  </button>
                 </div>
 
-                {/* Bottom Content Area */}
-                <div className="flex-1 p-6 pt-4 flex flex-col justify-between">
-                  {/* Action Buttons */}
-                  <div className="flex justify-end items-center gap-2">
-                    {/* Share via WhatsApp Button */}
-                    <a
-                      href="https://wa.me/?text=Check%20out%20NEk%20LABS%3A%20https%3A%2F%2Fnek-labs-website.vercel.app%2Fbharath"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white hover:bg-[#25D366] hover:border-[#25D366] transition-all relative px-4 flex-shrink-0 gap-2"
-                      title="Share via WhatsApp"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
-                      <span className="text-[10px] font-bold tracking-widest uppercase mt-[1px]">Share</span>
-                    </a>
-                    
-                    {/* Book a Meet (Compact) */}
-                    <Link
-                      href="/meet"
-                      onClick={onClose}
-                      className="bg-white text-black px-4 py-2.5 h-10 rounded-full font-bold text-sm hover:bg-zinc-200 transition-colors ml-1"
-                    >
-                      Meet
-                    </Link>
-                  </div>
+                {/* Profile Image (Grayscale/Metal look) */}
+                <div className="relative w-full h-[240px] bg-zinc-900 border-b border-[#222]">
+                  <Image
+                    src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490948/IMG_9303-3.jpg"
+                    alt="Bharath Chavan"
+                    fill
+                    sizes="360px"
+                    priority
+                    className="object-cover grayscale contrast-125 brightness-90"
+                    draggable={false}
+                  />
+                  {/* Subtle inner shadow for depth */}
+                  <div className="absolute inset-0 shadow-[inset_0_-20px_40px_rgba(10,10,10,1)] pointer-events-none"></div>
+                </div>
 
-                  {/* Name & Handle */}
-                  <div className="mt-4">
-                    <div className="flex items-center gap-1.5">
-                      <h2 className="text-xl font-bold text-white tracking-tight leading-none">NEk. | Bharath chavan</h2>
-                      <BadgeCheck size={18} fill="#3b82f6" stroke="white" strokeWidth={1.5} className="mt-0.5" />
-                    </div>
-                    <p className="text-zinc-400 font-medium text-sm mt-1">@nek_labs</p>
-                  </div>
-
-                  {/* Bio */}
-                  <p className="text-zinc-400 text-[13px] leading-relaxed mt-4">
-                    NEk LABS is a digital studio where technology levels up like an overpowered anime protagonist and the web is just another playground for automation and high-end aesthetics.
+                {/* Data Readout Section */}
+                <div className="flex-1 p-6 flex flex-col">
+                  
+                  {/* Large Typography Name */}
+                  <h2 className="text-2xl font-black text-white tracking-tighter uppercase mb-1">
+                    Bharath Chavan
+                  </h2>
+                  <p className="font-mono text-[11px] text-blue-500 tracking-widest mb-6 uppercase">
+                    @nek_labs
                   </p>
 
-                  {/* Titles */}
-                  <div className="flex items-center mt-6">
-                    <span className="font-black text-white text-[13px] tracking-widest uppercase">FOUNDER · BUILDER · CREATOR</span>
+                  {/* Terminal Key-Value Pairs */}
+                  <div className="flex flex-col gap-3 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
+                    <div className="flex items-start border-b border-[#222] pb-2">
+                      <span className="w-20 flex-shrink-0">[ROLE]</span>
+                      <span className="text-zinc-200">Founder · Builder</span>
+                    </div>
+                    <div className="flex items-start border-b border-[#222] pb-2">
+                      <span className="w-20 flex-shrink-0">[CLASS]</span>
+                      <span className="text-zinc-200">Creative Technologist</span>
+                    </div>
+                    <div className="flex items-start border-b border-[#222] pb-2">
+                      <span className="w-20 flex-shrink-0">[SYSTEM]</span>
+                      <span className="text-zinc-400 leading-relaxed normal-case tracking-normal">
+                        Engineering digital systems where the web is a playground for automation and high-end aesthetics.
+                      </span>
+                    </div>
                   </div>
+
+                  <div className="flex-1"></div>
+
+                  {/* Footer Actions & Barcode */}
+                  <div className="flex items-end justify-between mt-6">
+                    {/* Fake Barcode / Serial */}
+                    <div className="flex flex-col gap-1">
+                      <div className="flex gap-[2px] h-6 opacity-40">
+                        {/* CSS generated barcode effect */}
+                        {[...Array(20)].map((_, i) => (
+                          <div key={i} className="bg-white h-full" style={{ width: Math.random() > 0.5 ? '2px' : '4px', opacity: Math.random() > 0.3 ? 1 : 0 }}></div>
+                        ))}
+                      </div>
+                      <span className="font-mono text-[8px] text-zinc-600 tracking-[0.2em]">AUTH-B-8942</span>
+                    </div>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2">
+                      <a
+                        href="https://wa.me/?text=Check%20out%20NEk%20LABS%3A%20https%3A%2F%2Fnek-labs-website.vercel.app%2Fbharath"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded border border-[#333] bg-[#111] flex items-center justify-center text-zinc-400 hover:text-[#25D366] hover:border-[#25D366] transition-colors"
+                        title="Share via WhatsApp"
+                      >
+                        <Wifi size={14} />
+                      </a>
+                      <Link
+                        href="/meet"
+                        onClick={onClose}
+                        className="h-10 px-4 rounded border border-white bg-white flex items-center justify-center text-black font-bold text-[11px] tracking-widest uppercase hover:bg-zinc-200 transition-colors"
+                      >
+                        Connect
+                      </Link>
+                    </div>
+                  </div>
+
                 </div>
               </div>
 
-              {/* ===================== BACK FACE ===================== */}
+              {/* ===================== BACK FACE (DARK QR) ===================== */}
               <div 
-                className="absolute inset-0 w-full h-full bg-black/60 backdrop-blur-3xl border border-white/10 rounded-2xl overflow-hidden flex flex-col p-6 items-center justify-center shadow-2xl ring-1 ring-white/5"
+                className="absolute inset-0 w-full h-full bg-[#0a0a0a] border border-[#222] rounded-2xl overflow-hidden flex flex-col p-8 items-center justify-center shadow-2xl"
                 style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
               >
-                <button onClick={() => setIsFlipped(false)} className="absolute top-4 right-4 z-20 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors">
-                  <RotateCcw size={16} />
+                <button onClick={() => setIsFlipped(false)} className="absolute top-6 right-6 z-20 w-8 h-8 bg-[#111] border border-[#333] rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
+                  <RotateCcw size={14} />
                 </button>
 
-                <h3 className="text-white font-bold text-xl mb-2 tracking-tight">Scan to Connect</h3>
-                <p className="text-zinc-400 text-sm mb-8 text-center px-4">Point your camera at the QR code to open the NEk LABS portal.</p>
+                <Terminal size={24} className="text-zinc-600 mb-4" />
+                <h3 className="font-mono text-white text-sm tracking-widest uppercase mb-2">Encrypted Portal</h3>
+                <p className="font-mono text-[10px] text-zinc-500 mb-10 text-center tracking-widest uppercase max-w-[200px] leading-relaxed">
+                  Scan to transmit digital signature to your device
+                </p>
                 
-                <div className="bg-white p-4 rounded-xl shadow-lg mb-8 h-[182px] w-[182px] flex items-center justify-center">
-                  {mounted && <QRCode value={window.location.origin} size={150} level="H" />}
+                {/* Dark stylized QR Code Container */}
+                <div className="bg-[#111] border border-[#333] p-5 rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.03)] mb-10 h-[190px] w-[190px] flex items-center justify-center relative">
+                  {/* Subtle corner brackets */}
+                  <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-zinc-600 rounded-tl-xl"></div>
+                  <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-zinc-600 rounded-tr-xl"></div>
+                  <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-zinc-600 rounded-bl-xl"></div>
+                  <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-zinc-600 rounded-br-xl"></div>
+                  
+                  {mounted && <QRCode value={window.location.origin} size={150} level="H" bgColor="#111111" fgColor="#ffffff" />}
                 </div>
 
                 <button
                   onClick={downloadVCF}
-                  className="bg-white text-black w-full py-3.5 rounded-full font-bold text-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
+                  className="w-full h-12 rounded border border-[#333] bg-[#111] text-white font-mono text-[11px] tracking-widest uppercase hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-3"
                 >
-                  <Download size={16} /> Save to Contacts
+                  <Download size={14} /> Download VCF
                 </button>
               </div>
 
