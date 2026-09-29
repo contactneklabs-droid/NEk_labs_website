@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, RotateCcw, Download, Terminal, Wifi } from "lucide-react";
+import { X, RotateCcw, Download, Terminal } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import QRCode from "react-qr-code";
@@ -177,7 +177,7 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                         className="w-10 h-10 rounded border border-[#333] bg-[#111] flex items-center justify-center text-zinc-400 hover:text-[#25D366] hover:border-[#25D366] transition-colors"
                         title="Share via WhatsApp"
                       >
-                        <Wifi size={14} />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" /><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" /></svg>
                       </a>
                       <Link
                         href="/meet"
