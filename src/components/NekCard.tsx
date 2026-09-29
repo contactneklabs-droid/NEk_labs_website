@@ -15,16 +15,32 @@ interface NekCardProps {
 export default function NekCard({ isOpen, onClose }: NekCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [cmsData, setCmsData] = useState({
+    name: "Bharath Chavan",
+    handle: "@nek_labs",
+    role: "Founder · Builder",
+    classType: "Creative Technologist",
+    system: "Engineering digital systems where the web is a playground for automation and high-end aesthetics.",
+    profileImage: "https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490948/IMG_9303-3.jpg"
+  });
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    fetch('/api/nekcard')
+      .then(res => res.json())
+      .then(json => {
+        if (json.data) setCmsData(json.data);
+      })
+      .catch(console.error);
+  }, []);
 
   const downloadVCF = () => {
-    const vcfText = `BEGIN:VCARD\nVERSION:3.0\nN:Chavan;Bharath;;;\nFN:Bharath Chavan\nORG:NEk LABS\nTITLE:Founder, Builder, Creator\nEMAIL:contactneklabs@gmail.com\nURL:${window.location.origin}\nEND:VCARD`;
+    const vcfText = `BEGIN:VCARD\nVERSION:3.0\nN:${cmsData.name.split(' ').pop()};${cmsData.name.split(' ')[0]};;;\nFN:${cmsData.name}\nORG:NEk LABS\nTITLE:${cmsData.role}\nEMAIL:contactneklabs@gmail.com\nURL:${window.location.origin}\nEND:VCARD`;
     const blob = new Blob([vcfText], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "Bharath_Chavan_NEk_LABS.vcf";
+    link.download = `${cmsData.name.replace(/\s+/g, '_')}_NEk_LABS.vcf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -112,8 +128,8 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                 {/* Profile Image (Grayscale/Metal look) */}
                 <div className="relative w-full h-[240px] bg-zinc-900 border-b border-[#222]">
                   <Image
-                    src="https://res.cloudinary.com/wak9cipn/image/upload/f_auto,q_auto/v1789490948/IMG_9303-3.jpg"
-                    alt="Bharath Chavan"
+                    src={cmsData.profileImage}
+                    alt={cmsData.name}
                     fill
                     sizes="360px"
                     priority
@@ -129,26 +145,26 @@ export default function NekCard({ isOpen, onClose }: NekCardProps) {
                   
                   {/* Large Typography Name */}
                   <h2 className="text-2xl font-black text-white tracking-tighter uppercase mb-1">
-                    Bharath Chavan
+                    {cmsData.name}
                   </h2>
                   <p className="font-mono text-[11px] text-blue-500 tracking-widest mb-6 uppercase">
-                    @nek_labs
+                    {cmsData.handle}
                   </p>
 
                   {/* Terminal Key-Value Pairs */}
                   <div className="flex flex-col gap-3 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
                     <div className="flex items-start border-b border-[#222] pb-2">
                       <span className="w-20 flex-shrink-0">[ROLE]</span>
-                      <span className="text-zinc-200">Founder · Builder</span>
+                      <span className="text-zinc-200">{cmsData.role}</span>
                     </div>
                     <div className="flex items-start border-b border-[#222] pb-2">
                       <span className="w-20 flex-shrink-0">[CLASS]</span>
-                      <span className="text-zinc-200">Creative Technologist</span>
+                      <span className="text-zinc-200">{cmsData.classType}</span>
                     </div>
                     <div className="flex items-start border-b border-[#222] pb-2">
                       <span className="w-20 flex-shrink-0">[SYSTEM]</span>
                       <span className="text-zinc-400 leading-relaxed normal-case tracking-normal">
-                        Engineering digital systems where the web is a playground for automation and high-end aesthetics.
+                        {cmsData.system}
                       </span>
                     </div>
                   </div>
